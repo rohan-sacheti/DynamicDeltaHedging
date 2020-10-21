@@ -5,6 +5,7 @@
 #include "SampleStock.h"
 
 void SampleStock::saveSampleStock() {
+//    create all the vectors for the appropriate values
     vector<double> stock_price_S;
     vector<double> option_price_V;
     vector<double> risk_free_rate_r;
@@ -22,6 +23,7 @@ void SampleStock::saveSampleStock() {
     vector<vector<double>> all_delta_p;
 
 
+//    Double for loop, outer one to simulate 1000 paths
 
     for (int count = 0; count < 1000; count++) {
         stock_price_S.push_back(S0);
@@ -34,18 +36,19 @@ void SampleStock::saveSampleStock() {
         money_invested.push_back(delta[0] * stock_price_S[0]);
         portfolio_val.push_back(option_price_V[0] - money_invested[0]);
 
-
+//      Inner for loop to create the individual paths
         for (int i = 0; i < N - 1; i++) {
             stock_price_S.push_back(stock_price_S[i] +
                                     (mean * stock_price_S[i] * delta_t) +
                                     (sigma * stock_price_S[0] * sqrt(delta_t) * normalRandom()));
-
+//            BS option pricing (call)
             BlackScholes bs(K, stock_price_S[i + 1], r, T - ((i + 1) * delta_t), sigma);
             option_price_V.push_back(bs.call_price());
             delta.push_back(bs.delta());
-            hedging_error.push_back((delta[i] * stock_price_S[i + 1]) +
+//            Cumulative hedging error
+            cum_hedging_error.push_back((delta[i] * stock_price_S[i + 1]) +
                                     (B_i[i] * exp(r * delta_t)) - option_price_V[i + 1]);
-            cum_hedging_error.push_back(cum_hedging_error[i] + hedging_error[i+1]);
+            hedging_error.push_back(cum_hedging_error[i+1] - cum_hedging_error[i]);
             money_invested.push_back(delta[i + 1] * stock_price_S[i +1]);
             portfolio_val.push_back(option_price_V[i + 1] - money_invested[i + 1]);
             B_i.push_back((delta[i] * stock_price_S[i + 1]) +
@@ -66,8 +69,7 @@ void SampleStock::saveSampleStock() {
         B_i.clear();
         money_invested.clear();
     }
-    ofstream sim_stock_price ("test_sim_stock_file.csv");
-//    ofstream sim_option_price ("sim_option_file.csv");
+    ofstream sim_stock_price ("results_part_I.csv");
 
     for (int i = 0; i < 1000; i++) {
         for (int j = 0; j < 5; j++) {
@@ -94,10 +96,8 @@ void SampleStock::saveSampleStock() {
         for (int j = 0; j < 1000; j++ ){
             if (j == 999) {
                 sim_stock_price << all_stock_prices[j][i] << "," << all_option_prices[j][i] << "," << all_delta_p[j][i] << "," << all_cum_hedging_error[j][i] << "," << all_hedging_error[j][i] << endl;
-//                sim_option_price << all_option_prices[j][i] << endl;
             } else {
                 sim_stock_price << all_stock_prices[j][i] << "," << all_option_prices[j][i] << "," << all_delta_p[j][i] << "," << all_cum_hedging_error[j][i] << "," << all_hedging_error[j][i] << ",";
-//                sim_option_price << all_option_prices[j][1] << ",";
             }
         }
     }
@@ -107,6 +107,7 @@ void SampleStock::saveSampleStock() {
 }
 
 double SampleStock::normalRandom() {
+
     // construct a trivial random generator engine from a time-based seed:
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();;
     default_random_engine generator(seed);
