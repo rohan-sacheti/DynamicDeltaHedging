@@ -18,3 +18,9 @@ double StdNormalCDF::norm_distribution(double x) {
     return 1 - ((1/sqrt(2*M_PI)) * exp(-pow(x,2) * 0.5) * R);
 }
 
+int snc_main() {
+    StdNormalCDF test1;
+    cout << test1.norm_distribution(0.296);
+
+//   Ans: 0.616385
+}

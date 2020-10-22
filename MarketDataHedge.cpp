@@ -86,6 +86,7 @@ double MarketDataHedge::getOptionData() {
 void MarketDataHedge::getResults() {
     vector<double> stock_price;
     vector<string> date_stock;
+    cout << "Reading the data files." << endl;
     ifstream infile("./data/sec_GOOG.csv");
 
     string line, colname;
@@ -225,6 +226,7 @@ void MarketDataHedge::getResults() {
         }
     }
 
+    cout << "The data files have been read." << endl;
     double low_vol = 0.001;
     double high_vol = 0.99;
     double epsilon = 0.001;
@@ -241,6 +243,8 @@ void MarketDataHedge::getResults() {
 
     hedging_error.push_back(0);
     cum_hedging_error.push_back(0);
+
+    cout << "creating the dynamic hedge" << endl;
 
     for (int i = 0; i < date_stock.size(); i++) {
         double date_diff = dateDiff(date_stock[i], T);
@@ -267,6 +271,7 @@ void MarketDataHedge::getResults() {
         portfolio_val.push_back(avg_option_price[0]-avg_option_price[i]);
     }
 
+    cout << "Saving the hedged portfolio to results.csv" << endl;
     ofstream sim_stock_price ("results.csv");
     sim_stock_price << "date,Stock_Price,Option_Price,Implied_Volatility,delta,PNL,PNL(with_hedge),Daily_hedging_error" << endl;
     for (int i = 0; i < avg_option_price.size(); i++) {
@@ -296,4 +301,9 @@ int MarketDataHedge::dateDiff(string date1, string date2) {
     int days_apart = round((5./7.) * ((year_diff * 365) + (month_diff * 30) + (day_diff)));
 
     return days_apart;
+}
+
+int mdh_main() {
+    MarketDataHedge test3("2011-07-05", "2011-07-29", "2011-09-17", 500);
+    test3.getResults();
 }

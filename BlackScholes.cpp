@@ -53,3 +53,18 @@ double BlackScholes::vega() {
     double pdf_norm = exp(-(pow(d_1(), 2))*0.5) / sqrt(2 * M_PI);
     return  current_price_S * sqrt(time_to_maturity_t) * pdf_norm;
 }
+
+int bs_main() {
+//    unnittests
+    BlackScholes bs(102, 100, 0.03, 2, 0.15);
+
+    cout << "Call price: " << bs.call_price() << endl;
+    cout << "Put price: " << bs.put_price() << endl;
+    cout << "Delta price: " << bs.delta() << endl;
+    cout << "Vega price: " << bs.vega   () << endl;
+
+//    Call price: 10.3982
+//    Put price: 6.45822
+//    Delta price: 0.616216
+//    Vega price: 54.0078
+}

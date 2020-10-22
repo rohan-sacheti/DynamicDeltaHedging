@@ -13,15 +13,15 @@ using namespace std;
 #include <sstream>
 
 int main() {
-    StdNormalCDF test1;
-    cout << test1.norm_distribution(0.296);
-
-    BlackScholes bs(102, 100, 0.03, 2, 0.15);
-
-    cout << "Call price: " << bs.call_price() << endl;
-    cout << "Put price: " << bs.put_price() << endl;
-    cout << "Delta price: " << bs.delta() << endl;
-    cout << "Vega price: " << bs.vega   () << endl;
+//    StdNormalCDF test1;
+//    cout << test1.norm_distribution(0.296);
+//
+//    BlackScholes bs(102, 100, 0.03, 2, 0.15);
+//
+//    cout << "Call price: " << bs.call_price() << endl;
+//    cout << "Put price: " << bs.put_price() << endl;
+//    cout << "Delta price: " << bs.delta() << endl;
+//    cout << "Vega price: " << bs.vega   () << endl;
 
     cout << "*****************************************" << endl;
     cout << "*************** PART I ******************" << endl;

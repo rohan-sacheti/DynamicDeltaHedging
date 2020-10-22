@@ -6,7 +6,9 @@
 #define PROJECT1_BLACKSCHOLES_H
 
 #include "StdNormalCDF.h"
+#include "iostream"
 #define _USE_MATH_DEFINES
+using namespace std;
 
 class BlackScholes {
 

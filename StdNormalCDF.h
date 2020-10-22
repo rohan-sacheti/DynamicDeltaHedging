@@ -5,6 +5,9 @@
 #ifndef PROJECT1_STDNORMAL_H
 #define PROJECT1_STDNORMAL_H
 #include "math.h"
+#include "iostream"
+
+using namespace std;
 
 class StdNormalCDF {
 private:

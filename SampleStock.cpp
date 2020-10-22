@@ -24,7 +24,7 @@ void SampleStock::saveSampleStock() {
 
 
 //    Double for loop, outer one to simulate 1000 paths
-
+    cout << "The stocks are being simulated." << endl;
     for (int count = 0; count < 1000; count++) {
         stock_price_S.push_back(S0);
         BlackScholes bs(K, S0, r, T, sigma);
@@ -69,6 +69,7 @@ void SampleStock::saveSampleStock() {
         B_i.clear();
         money_invested.clear();
     }
+    cout << "The stocks have been simulated they're now being saved to results_part_I.csv" << endl;
     ofstream sim_stock_price ("results_part_I.csv");
 
     for (int i = 0; i < 1000; i++) {
@@ -102,8 +103,8 @@ void SampleStock::saveSampleStock() {
         }
     }
 
+    cout << "The results have been saved" << endl;
     sim_stock_price.close();
-
 }
 
 double SampleStock::normalRandom() {
@@ -113,4 +114,9 @@ double SampleStock::normalRandom() {
     default_random_engine generator(seed);
     normal_distribution<double> distribution(0,1);
     return distribution(generator);
+}
+
+int ss_main() {
+    SampleStock ss;
+    ss.saveSampleStock();
 }
