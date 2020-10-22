@@ -264,7 +264,7 @@ void MarketDataHedge::getResults() {
         cum_hedging_error.push_back((delta[i - 1] * stock_price[i]) +
                                 (B_i[i - 1] * exp(interest_rate[i - 1] * delta_t)) - avg_option_price[i]);
         hedging_error.push_back(cum_hedging_error[i] - cum_hedging_error[i-1]);
-        portfolio_val.push_back(avg_option_price[i]-avg_option_price[0]);
+        portfolio_val.push_back(avg_option_price[0]-avg_option_price[i]);
     }
 
     ofstream sim_stock_price ("results.csv");
