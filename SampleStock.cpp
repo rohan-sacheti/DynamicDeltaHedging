@@ -16,11 +16,11 @@ void SampleStock::saveSampleStock() {
     vector<double> money_invested;
     vector<double> portfolio_val;
 
-    vector<vector<double>> all_stock_prices;
-    vector<vector<double>> all_option_prices;
-    vector<vector<double>> all_hedging_error;
-    vector<vector<double>> all_cum_hedging_error;
-    vector<vector<double>> all_delta_p;
+    vector<vector<double> > all_stock_prices;
+    vector<vector<double> > all_option_prices;
+    vector<vector<double> > all_hedging_error;
+    vector<vector<double> > all_cum_hedging_error;
+    vector<vector<double> > all_delta_p;
 
 
 //    Double for loop, outer one to simulate 1000 paths
